@@ -1,4 +1,14 @@
 @* listAll Template File *@
-@(param: String)
+@(products: List[ProductModel])
 
-@param
+List of all the products:<br /><br />
+
+@for(product <- products) {
+	**************************************************<br />
+	Id: @product.getProductId()<br />
+	Name: @product.getProductName()<br />
+	Description: @product.getDescription()<br />
+	Cost: @product.getCost()<br />
+	Rrp: @product.getRrp()<br />
+	**************************************************<br /><br />
+}

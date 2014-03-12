@@ -1,4 +1,12 @@
 @* listAll Template File *@
-@(param: String)
+@(categories: List[CategoryModel])
 
-@param
+List of all the categories:<br /><br />
+
+@for(category <- categories) {
+	**************************************************<br />
+	Category id: @category.getCategoryId()<br />
+	Staff id: @category.getStaffId()<br />
+	Category name: @category.getCategoryName()<br />
+	**************************************************<br /><br />
+}

@@ -1,4 +1,8 @@
 @* showOne Template File *@
-@(param: String)
+@(product: ProductModel)
 
-@param
+Id: @product.getProductId()<br />
+Name: @product.getProductName()<br />
+Description: @product.getDescription()<br />
+Cost: @product.getCost()<br />
+Rrp: @product.getRrp()

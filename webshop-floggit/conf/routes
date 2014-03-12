@@ -6,11 +6,11 @@
 GET 		/start			                           			controllers.Application.startPageApplication()
 
 GET			/listAllCat											controllers.Category.listAllCat()
-GET			/showOneCat											controllers.Category.showOneCat()
+GET			/showOneCat/:id										controllers.Category.showOneCat(id : Int)
 GET			/editCat											controllers.Category.editCat()
 
 GET			/listAllProd										controllers.Product.listAllProd()
-GET			/showOneProd										controllers.Product.showOneProd()
+GET			/showOneProd/:id									controllers.Product.showOneProd(id : Int)
 GET			/editProd											controllers.Product.editProd()
 
 GET			/showShoppingBasket									controllers.ShoppingBasket.showShoppingBasket()
