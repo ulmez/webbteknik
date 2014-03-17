@@ -1,0 +1,12 @@
+@(shoppingBaskets: List[ShoppingBasket])
+
+@main("Show one shoppingbasket") {
+	<div class="text-info">
+		@for(shoppingBasket <- shoppingBaskets) {
+			ShoppingBasketId: @shoppingBasket.getShoppingBasketId()<br />
+			UserId: @shoppingBasket.getUserId()<br />
+			ProductId: @shoppingBasket.getProductId()<br />
+			Quantity: @shoppingBasket.getQuantity()<br /><br />
+		}
+	</div>
+}

@@ -3,18 +3,25 @@
 # ~~~~
 
 # Home page
-GET 		/start			                           			controllers.Application.startPageApplication()
+#GET			/								controllers.ApplicationController.index()
+GET 		/start								controllers.ApplicationController.startPageApplication()
+GET			/create-all							controllers.ApplicationController.createAll()
 
-GET			/listAllCat											controllers.Category.listAllCat()
-GET			/showOneCat/:id										controllers.Category.showOneCat(id : Int)
-GET			/editCat											controllers.Category.editCat()
+GET			/list-all-categories				controllers.CategoryController.listAllCategories()
+GET			/show-one-category/:id				controllers.CategoryController.showOneCategory(id : Int)
+GET			/edit-category						controllers.CategoryController.editCategory()
 
-GET			/listAllProd										controllers.Product.listAllProd()
-GET			/showOneProd/:id									controllers.Product.showOneProd(id : Int)
-GET			/editProd											controllers.Product.editProd()
+GET			/list-all-products/:num/:page		controllers.ProductController.listAllProducts(num : Int, page : Int)
+GET			/show-one-product/:id				controllers.ProductController.showOneProduct(id : Int)
+GET			/edit-product						controllers.ProductController.editProduct()
 
-GET			/showShoppingBasket									controllers.ShoppingBasket.showShoppingBasket()
-GET			/checkout											controllers.ShoppingBasket.checkout()
+GET			/list-all-users						controllers.UserController.listAllUsers()
+GET			/show-one-user/:id					controllers.UserController.showOneUser(id : Int)
+GET			/edit-user							controllers.UserController.editUser()
+
+GET			/list-all-shoppingbaskets			controllers.ShoppingBasketController.listAllShoppingBaskets()
+GET			/show-one-shoppingbasket/:id		controllers.ShoppingBasketController.showOneShoppingBasket(id : Int)
+GET			/checkout							controllers.ShoppingBasketController.checkout()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     	/assets/*file   	    					        controllers.Assets.at(path="/public", file)
+GET     	/assets/*file   	    			controllers.Assets.at(path="/public", file)

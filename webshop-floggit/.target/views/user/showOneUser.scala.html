@@ -1,0 +1,15 @@
+@(user: User)
+
+@main("Show one user") {
+	<div class="text-info">
+		User id: @user.getUserId()<br />
+		Email: @user.getEmail()<br />
+		Password: @user.getPassword()<br />
+		Firstname: @user.getFirstName()<br />
+		Surname: @user.getSurName()<br />
+		Street address: @user.getStreetAddress()<br />
+		Post code: @user.getPostCode()<br />
+		Town: @user.getTown()<br />
+		Telephone: @user.getTelephone()
+	</div>
+}

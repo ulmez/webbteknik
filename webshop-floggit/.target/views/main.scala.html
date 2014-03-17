@@ -1,0 +1,17 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>@title</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	<!-- <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/main.css")"> -->
+</head>
+<body>
+	@content
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+</html>

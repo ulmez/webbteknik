@@ -1,0 +1,11 @@
+@(product: Product)
+
+@main("Show one product") {
+	<div class="text-info">
+		Id: @product.getProductId()<br />
+		Name: @product.getProductName()<br />
+		Description: @product.getDescription()<br />
+		Cost: @product.getCost()<br />
+		Rrp: @product.getRrp()
+	</div>
+}

@@ -1,0 +1,16 @@
+@(categories: List[Category])
+
+@main("List all categories") {
+	<div class="text-info">
+		List of all the categories:
+	</div>
+
+	@for(category <- categories) {
+		<div class="text-info">
+			<br />
+			Category id: @category.getCategoryId()<br />
+			Staff id: @category.getStaffId()<br />
+			Category name: @category.getCategoryName()
+		</div>
+	}
+}
