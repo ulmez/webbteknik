@@ -1,11 +1,11 @@
-@(shoppingBaskets: List[ShoppingBasket])
+@(shoppingBaskets: List[ShoppingBasket], one_users: List[User])
 
-@main("Show one shoppingbasket") {
+@main("Show one shoppingbasket", one_users) {
 	<div class="text-info">
 		@for(shoppingBasket <- shoppingBaskets) {
 			ShoppingBasketId: @shoppingBasket.getShoppingBasketId()<br />
-			UserId: @shoppingBasket.getUserId()<br />
-			ProductId: @shoppingBasket.getProductId()<br />
+			UserId: @shoppingBasket.getUser.getUserId()<br />
+			ProductId: @shoppingBasket.getProduct().getProductId()<br />
 			Quantity: @shoppingBasket.getQuantity()<br /><br />
 		}
 	</div>

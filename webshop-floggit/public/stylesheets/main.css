@@ -1,12 +1,22 @@
-body {
+/* body {
 	background-color: #333;
 	color: white;
-}
+} */
 
 .start-div-padding-top {
 	padding-top: 70px;
 }
 
-.own-div-color {
+/* .own-div-color {
 	background-color: #666;
+} */
+
+.padding-div-top {
+	padding-top: 5px;
+}
+
+.override-link {
+	color: white;
+	padding-top: 1.1em;
+	padding-left: 2em;
 }

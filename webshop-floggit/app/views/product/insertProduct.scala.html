@@ -1,0 +1,8 @@
+@* insertProduct Template File *@
+@(products: List[Product], one_users: List[User])
+
+@main("Insert product", one_users) {
+	@for(product <- products) {
+		@product.getProductName()<br />
+	}
+}

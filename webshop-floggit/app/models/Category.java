@@ -1,38 +1,49 @@
 package models;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "categories")
 public class Category {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int categoryId;
-	private int staffId;
+	
+	@ManyToOne
+	@JoinColumn(name = "staff_id")
+	private Staff staff;
+	
+	@Column(name = "category_name")
 	private String categoryName;
 	
-	public Category() {
-		staffId = 0;
-		categoryName = null;
-	}
+	//bi-directional many-to-one association to ProductsCategory
+	@OneToMany(mappedBy="category")
+	private List<ProductsCategory> productsCategories;
 	
-	public Category(int staffId, String categoryName) {
-		this.staffId = staffId;
-		this.categoryName = categoryName;
-	}
+	public Category() {}
 	
 	public int getCategoryId() {
 		return categoryId;
 	}
 	
-	public int getStaffId() {
-		return staffId;
+	public Staff getStaff() {
+		return staff;
 	}
 
-	public void setStaffId(int staffId) {
-		this.staffId = staffId;
+	public void setStaff(Staff staff) {
+		this.staff = staff;
 	}
 	
 	public String getCategoryName() {
@@ -43,14 +54,12 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 	
-	@Override
-	public String toString() {
-		String categoryInfo = "";
-		
-		categoryInfo += "categoryId: " + categoryId + "\n";
-		categoryInfo += "staffId: " + staffId + "\n";
-		categoryInfo += "categoryName: " + categoryName + "\n";
-		
-		return categoryInfo;
+	public List<ProductsCategory> getProductsCategories() {
+		return this.productsCategories;
 	}
+
+	public void setProductsCategories(List<ProductsCategory> productsCategories) {
+		this.productsCategories = productsCategories;
+	}
+	
 }

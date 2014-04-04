@@ -1,16 +1,44 @@
-@(categories: List[Category])
+@(categories: List[Category], all_categories: List[Category], num: Int, page: Int, one_users: List[User])
 
-@main("List all categories") {
-	<div class="text-info">
+@main("List all categories", one_users) {
+	<div class="lead text-center">
 		List of all the categories:
 	</div>
-
-	@for(category <- categories) {
-		<div class="text-info">
-			<br />
-			Category id: @category.getCategoryId()<br />
-			Staff id: @category.getStaffId()<br />
-			Category name: @category.getCategoryName()
-		</div>
+	
+	<div class="text-center">
+		<ul class="pagination">
+			@if(page > 1) {
+				<li><a href="/list-all-categories/@num/@{page - 1}">&laquo;</a></li>
+			} else {
+				<li class="disabled"><a href="">&laquo;</a></li>
+			}
+			
+			@for(a <- 0 to (all_categories.size() / num) - {if ((all_categories.size()) % num != 0) 0 else 1}) {
+				@if(request.uri == "/list-all-categories/" + num + "/" + {a + 1}) {
+					<li class="active"><a href="/list-all-categories/@num/@{a + 1}">@{a + 1} <span class="sr-only">(current)</span></a></li>
+				} else {
+					<li><a href="/list-all-categories/@num/@{a + 1}">@{a + 1}</a></li>
+				}
+			}
+			
+			@if((page) <= (all_categories.size() / num) - {if ((all_categories.size()) % num != 0) 0 else 1}) {
+				<li><a href="/list-all-categories/@num/@{page + 1}">&raquo;</a></li>
+			} else {
+				<li class="disabled"><a href="">&raquo;</a></li>
+			}
+		</ul>
+	</div>
+	
+	<table class="table table-striped table-bordered table-condensed">
+	<tr>
+		<th>Id</th><th>StaffId</th><th>Category name</th>
+	</tr>
+	@for((category, index) <- categories.zipWithIndex) {
+		<tr>
+			<td><a href="/show-one-category/@{(num * (page - 1)) + (index + 1)}">@category.getCategoryId()</a></td>
+			<td>@category.getStaff().getStaffId()</td>
+			<td>@category.getCategoryName()</td>
+		</tr>
 	}
+	</table>
 }

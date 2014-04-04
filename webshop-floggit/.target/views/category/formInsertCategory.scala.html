@@ -1,0 +1,67 @@
+@* formInsertCategory Template File *@
+@(categories: List[Category], staffs: List[Staff], one_users: List[User])
+
+@main("Insert category form", one_users) {
+	<div class="lead text-center">
+		Insert new category:
+	</div>
+	
+	<!-- ***************************************************************************************** -->
+	<form action="@routes.CategoryController.insertCategory()" method="post" role="form">
+		<div class="form-group">
+			<div class="row padding-div-top">
+				<div class="col-lg-1 col-lg-offset-3"><label for="category-name">Name</label></div>
+				@if(flash().containsKey("not-empty-name")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("not-empty-name")" class="form-control" id="category-name" name="name" placeholder="Name"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="category-name" name="name" placeholder="Name"></div>
+				}
+				<div class="col-lg-4 text-danger">
+					@if(flash().containsKey("empty-name")) {
+						@flash().get("empty-name")
+					}
+					
+					@if(flash().containsKey("already-used-name")) {
+						@flash().get("already-used-name")
+					}
+				</div>
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-1 col-lg-offset-3"><label for="category-staffid">Staff</label></div>
+				<div class="col-lg-4">
+					<select class="form-control" name="staff">
+						@for(staff <- staffs) {
+							@if(flash().containsKey("selected-staff") && staff.getStaffId() == Integer.parseInt(flash().get("selected-staff"))) {
+						    	<option value="@staff.getStaffId()" selected>@staff.getFirstName @staff.getSurName()</option>
+						    } else {
+						    	<option value="@staff.getStaffId()">@staff.getFirstName @staff.getSurName()</option>
+						    }
+					    }
+					</select>
+  				</div>
+				<div class="col-lg-4"></div>
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4 text-right"><button type="submit" class="btn btn-default">Submit</button></div>
+				<div class="col-lg-4"></div>
+			</div>
+		</div>
+	</form>
+	<!-- ***************************************************************************************** -->
+	
+	<table class="table table-striped table-bordered table-condensed">
+	<tr>
+		<th>Id</th><th>StaffId</th><th>Category name</th>
+	</tr>
+	@for((category, index) <- categories.zipWithIndex) {
+		<tr>
+			<td>@category.getCategoryId()</td>
+			<td>@category.getStaff().getStaffId()</td>
+			<td>@category.getCategoryName()</td>
+		</tr>
+	}
+	</table>
+}

@@ -1,6 +1,6 @@
-@(user: User)
+@(user: User, one_users: List[User])
 
-@main("Show one user") {
+@main("Show one user", one_users) {
 	<div class="text-info">
 		User id: @user.getUserId()<br />
 		Email: @user.getEmail()<br />

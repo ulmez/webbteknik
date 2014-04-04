@@ -1,0 +1,9 @@
+@(products: List[Product])
+@import play.api.libs.json.Json
+@for(product <- products) {
+@{Json.toJson(product.getProductId())}
+@{Json.toJson(product.getProductName())}
+@{Json.toJson(product.getDescription())}
+@{Json.toJson(product.getCost())}
+@{Json.toJson(product.getRrp())}
+}

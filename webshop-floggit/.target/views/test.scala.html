@@ -1,0 +1,13 @@
+@* test Template File *@
+@(films: List[Film])
+
+@for(film <- films) {
+	@film.getProductId()<br />
+	@film.getProductName()<br />
+	@film.getDescription()<br />
+	@film.getCost()<br />
+	@film.getRrp()<br />
+	@film.getRating()<br />
+	@film.getAgelimit()<br />
+	@film.getReleased()<br /><br />
+}

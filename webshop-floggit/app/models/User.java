@@ -1,46 +1,60 @@
 package models;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import models.Orderline;
+import models.ShoppingBasket;
 
 @Entity
+@Table(name = "users")
 public class User {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int userId;
+	
+	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "firstname")
 	private String firstName;
+	
+	@Column(name = "surname")
 	private String surName;
+	
+	@Column(name = "street_address")
 	private String streetAddress;
+	
+	@Column(name = "post_code")
 	private String postCode;
+	
+	@Column(name = "town")
 	private String town;
+	
+	@Column(name = "telephone")
 	private String telephone;
 	
-	public User() {
-		email = null;
-		password = null;
-		firstName = null;
-		surName = null;
-		streetAddress = null;
-		postCode = null;
-		town = null;
-		telephone = null;
-	}
+	//bi-directional many-to-one association to ShoppingBasket
+	@OneToMany(mappedBy="user")
+	private List<ShoppingBasket> shoppingBaskets;
 	
-	public User(String email, String password, String firstName,String surName,
-	String streetAddress, String postCode, String town, String telephone) {
-		this.email = email;
-		this.password = password;
-		this.firstName = firstName;
-		this.surName = surName;
-		this.streetAddress = streetAddress;
-		this.postCode = postCode;
-		this.town = town;
-		this.telephone = telephone;
-	}
+	//bi-directional many-to-one association to Orderline
+	@OneToMany(mappedBy="user")
+	private List<Orderline> orderlines;
+	
+	public User() {}
 	
 	public String getEmail() {
 		return email;
@@ -109,4 +123,21 @@ public class User {
 	public int getUserId() {
 		return userId;
 	}
+	
+	public List<ShoppingBasket> getShoppingBaskets() {
+		return this.shoppingBaskets;
+	}
+
+	public void setShoppingBaskets(List<ShoppingBasket> shoppingBaskets) {
+		this.shoppingBaskets = shoppingBaskets;
+	}
+	
+	public List<Orderline> getOrderlines() {
+		return this.orderlines;
+	}
+
+	public void setOrderlines(List<Orderline> orderlines) {
+		this.orderlines = orderlines;
+	}
+	
 }

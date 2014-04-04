@@ -1,0 +1,153 @@
+@* registerUser Template File *@
+@(message: String, one_users: List[User])
+
+@main(message, one_users) {
+	<div class="lead text-center">
+		Register new user
+	</div>
+	
+	<form action="@routes.UserController.insertUser()" method="post" role="form">
+		<div class="form-group">
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="email">Email</label></div>
+				@if(flash().containsKey("return-field-email")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("return-field-email")" class="form-control" id="email" name="email" placeholder="Email"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="email" name="email" placeholder="Email"></div>
+				}
+				
+				@if(flash().containsKey("empty-email")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-email")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="password">Password</label></div>
+				@if(flash().containsKey("return-field-password")) {
+					<div class="col-lg-4"><input type="password" value="@flash().get("return-field-password")" class="form-control" id="password" name="password" placeholder="Password"></div>
+				} else {
+					<div class="col-lg-4"><input type="password" class="form-control" id="password" name="password" placeholder="Password"></div>
+				}
+				
+				@if(flash().containsKey("empty-password") || flash().containsKey("not-same-password")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-password")@flash().get("not-same-password")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="passwordCheck">Password&nbsp;check</label></div>
+				@if(flash().containsKey("return-field-passwordCheck")) {
+					<div class="col-lg-4"><input type="password" value="@flash().get("return-field-passwordCheck")" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="Password check"></div>
+				} else {
+					<div class="col-lg-4"><input type="password" class="form-control" id="passwordCheck" name="passwordCheck" placeholder="Password check"></div>
+				}
+				
+				@if(flash().containsKey("empty-passwordCheck") || flash().containsKey("not-same-passwordCheck")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-passwordCheck")@flash().get("not-same-passwordCheck")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="firstName">Firstname</label></div>
+				@if(flash().containsKey("return-field-firstName")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("return-field-firstName")" class="form-control" id="firstName" name="firstName" placeholder="Firstname"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="firstName" name="firstName" placeholder="Firstname"></div>
+				}
+				
+				@if(flash().containsKey("empty-firstName")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-firstName")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="surName">Surname</label></div>
+				@if(flash().containsKey("return-field-surName")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("return-field-surName")" class="form-control" id="surName" name="surName" placeholder="Surname"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="surName" name="surName" placeholder="Surname"></div>
+				}
+				
+				@if(flash().containsKey("empty-surName")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-surName")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="streetAddress">Street&nbsp;address</label></div>
+				@if(flash().containsKey("return-field-streetAddress")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("return-field-streetAddress")" class="form-control" id="streetAddress" name="streetAddress" placeholder="Street address"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="streetAddress" name="streetAddress" placeholder="Street address"></div>
+				}
+				
+				@if(flash().containsKey("empty-streetAddress")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-streetAddress")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="postCode">Post code</label></div>
+				@if(flash().containsKey("return-field-postCode")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("return-field-postCode")" class="form-control" id="postCode" name="postCode" placeholder="Post code"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="postCode" name="postCode" placeholder="Post code"></div>
+				}
+				
+				@if(flash().containsKey("empty-postCode") || flash().containsKey("not-numeric-postCode")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-postCode")@flash().get("not-numeric-postCode")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="town">Town</label></div>
+				@if(flash().containsKey("return-field-town")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("return-field-town")" class="form-control" id="town" name="town" placeholder="Town"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="town" name="town" placeholder="Town"></div>
+				}
+				
+				@if(flash().containsKey("empty-town")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-town")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-2 col-lg-offset-2 text-right"><label for="telephone">Telephone</label></div>
+				@if(flash().containsKey("return-field-telephone")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("return-field-telephone")" class="form-control" id="telephone" name="telephone" placeholder="Telephone"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telephone"></div>
+				}
+				
+				@if(flash().containsKey("empty-telephone")) {
+					<div class="col-lg-4 text-danger">@flash().get("empty-telephone")</div>
+				} else {
+					<div class="col-lg-4 text-danger"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4 text-right"><button type="submit" class="btn btn-default">Submit</button></div>
+				<div class="col-lg-4"></div>
+			</div>
+		</div>
+	</form>
+}

@@ -1,9 +1,9 @@
-@(message: String)
+@(message: String, one_users: List[User])
 
-@main("Start page") {
+@main("Start page", one_users) {
 	<div class="container">
-		<div class="lead text-center start-div-padding-top">
-			@message
+		<div class="lead text-center">
+			Welcome @one_users.get(0).getFirstName() @one_users.get(0).getSurName()
 		</div>
 	</div>
 }

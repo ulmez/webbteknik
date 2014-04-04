@@ -1,11 +1,67 @@
-@(product: Product)
+@(product: Product, one_users: List[User], listId: Int)
 
-@main("Show one product") {
-	<div class="text-info">
-		Id: @product.getProductId()<br />
-		Name: @product.getProductName()<br />
-		Description: @product.getDescription()<br />
-		Cost: @product.getCost()<br />
-		Rrp: @product.getRrp()
+@main("Show one product", one_users) {
+	<div class="lead text-center">
+		List one product:
 	</div>
+	
+	<div class="row">
+		<div class="col-lg-3"></div>
+		<div class="col-lg-6">
+			<table class="table table-striped table-bordered table-condensed">
+				<tr>
+					<th>Product id</th><td>@product.getProductId()</td>
+				</tr>
+				<tr>
+					<th>Name</th><td>@product.getProductName()</td>
+				</tr>
+				<tr>
+					<th>Description</th><td>@product.getDescription()</td>
+				</tr>
+				<tr>
+					<th>Cost</th><td>@product.getCost()</td>
+				</tr>
+				<tr>
+					<th>Rrp</th><td>@product.getRrp()</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-lg-3"></div>
+	</div>
+	
+	<form action="@routes.ShoppingBasketController.insertShoppingBasket()" method="post" role="form">
+		<div class="form-group">
+		
+			<div class="row padding-div-top">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4 text-center"><label for="headline">Put product into shoppingbasket</label></div>
+				<div class="col-lg-4"></div>
+			</div>
+			
+			<div class="row padding-div-top">
+				<div  class="col-lg-1 col-lg-offset-3 text-center"><label for="quantity">Quantity</label></div>
+				@if(flash().containsKey("return-field-quantity")) {
+					<div class="col-lg-5"><input type="text" value="@flash().get("return-field-quantity")" name="quantity" class="form-control" id="quantity" name="quantity" placeholder="Quantity"></div>
+				} else {
+					<div class="col-lg-5"><input type="text" name="quantity" class="form-control" id="quantity" name="quantity" placeholder="Quantity"></div>
+				}
+				
+				@if(flash().containsKey("empty-quantity") || flash().containsKey("not-numeric-quantity") || flash().containsKey("product-already-used")) {
+					<div class="col-lg-3 text-danger">@flash().get("empty-quantity")@flash().get("not-numeric-quantity")@flash().get("product-already-used")</div>
+				} else {
+					<div class="col-lg-3"></div>
+				}
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-5 text-right"><button type="submit" class="btn btn-default">Submit</button></div>
+				<div class="col-lg-3"></div>
+			</div>
+			
+			<input type="hidden" value="@product.getProductId()" name="productId" id="productId" name="productId">
+			<input type="hidden" value="@listId" name="listId" id="listId" name="listId">
+			
+		</div>
+	</form>
 }

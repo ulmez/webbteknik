@@ -1,43 +1,46 @@
-@(products: List[Product], all_products: List[Product], num: Int)
+@(products: List[Product], all_products: List[Product], num: Int, page: Int, one_users: List[User])
 
-@main("List all products") {
-	<div class="text-info lead">
+@main("List all products", one_users) {
+	<div class="lead text-center">
 		List of all the products:
 	</div>
 	
-	<ul class="pagination">
-		@defining(Integer.parseInt((request.uri).substring((request.uri).lastIndexOf("/") + 1)) - 1) { page=>
-			@if(page > 0) {
-				<li><a href="/list-all-products/@num/@page">&laquo;</a></li>
+	<div class="text-center">
+		<ul class="pagination">
+			@if(page > 1) {
+				<li><a href="/list-all-products/@num/@{page - 1}">&laquo;</a></li>
 			} else {
 				<li class="disabled"><a href="">&laquo;</a></li>
 			}
-		}
-		
-		@for(a <- 0 to (all_products.size() / num) - {if ((all_products.size()) % num != 0) 0 else 1}) {
-			@if(request.uri == "/list-all-products/" + num + "/" + {a + 1}) {
-				<li class="active"><a href="/list-all-products/@num/@{a + 1}">@{a + 1} <span class="sr-only">(current)</span></a></li>
-			} else {
-				<li><a href="/list-all-products/@num/@{a + 1}">@{a + 1}</a></li>
+			
+			@for(a <- 0 to (all_products.size() / num) - {if ((all_products.size()) % num != 0) 0 else 1}) {
+				@if(request.uri == "/list-all-products/" + num + "/" + {a + 1}) {
+					<li class="active"><a href="/list-all-products/@num/@{a + 1}">@{a + 1} <span class="sr-only">(current)</span></a></li>
+				} else {
+					<li><a href="/list-all-products/@num/@{a + 1}">@{a + 1}</a></li>
+				}
 			}
-		}
-		
-		@defining(Integer.parseInt((request.uri).substring((request.uri).lastIndexOf("/") + 1)) + 1) { page=>
-			@if((page - 1) <= (all_products.size() / num) - {if ((all_products.size()) % num != 0) 0 else 1}) {
-				<li><a href="/list-all-products/@num/@page">&raquo;</a></li>
+			
+			@if((page) <= (all_products.size() / num) - {if ((all_products.size()) % num != 0) 0 else 1}) {
+				<li><a href="/list-all-products/@num/@{page + 1}">&raquo;</a></li>
 			} else {
 				<li class="disabled"><a href="">&raquo;</a></li>
 			}
-		}
-	</ul>
+		</ul>
+	</div>
 	
+	<table class="table table-striped table-bordered table-condensed">
+	<tr>
+		<th>Id</th><th>Name</th><th>Description</th><th>Cost</th><th>Rrp</th>
+	</tr>
 	@for((product, index) <- products.zipWithIndex) {
-		<div class="text-info">
-			Id: @product.getProductId()<br />
-			Name: @product.getProductName()<br />
-			Description: @product.getDescription()<br />
-			Cost: @product.getCost()<br />
-			Rrp: @product.getRrp()
-		</div><br />
+		<tr>
+			<td><a href="/show-one-product/@{(num * (page - 1)) + (index + 1)}">@product.getProductId()</a></td>
+			<td>@product.getProductName()</td>
+			<td>@product.getDescription()</td>
+			<td>@product.getCost()</td>
+			<td>@product.getRrp()</td>
+		</tr>
 	}
+	</table>
 }

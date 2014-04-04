@@ -1,6 +1,6 @@
-@(message: String)
+@(message: String, one_users: List[User])
 
-@main("Edit user") {
+@main("Edit user", one_users) {
 	<div class="text-info">
 		@message
 	</div>

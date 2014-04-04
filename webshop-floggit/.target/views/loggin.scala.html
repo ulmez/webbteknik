@@ -1,0 +1,54 @@
+@* loggin Template File *@
+@(message: String, one_users: List[User])
+
+@main("Loggin page", one_users) {
+	<div class="lead text-center">
+		Loggin user
+	</div>
+	
+	<form action="@routes.ApplicationController.logginAuthentication()" method="post" role="form">
+		<div class="form-group">
+			<div class="row padding-div-top">
+				<div class="col-lg-1 col-lg-offset-3"><label for="username">Username</label></div>
+				@if(flash().containsKey("formfieldusername")) {
+					<div class="col-lg-4"><input type="text" value="@flash().get("formfieldusername")" class="form-control" id="username" name="username" placeholder="Username"></div>
+				} else {
+					<div class="col-lg-4"><input type="text" class="form-control" id="username" name="username" placeholder="Username"></div>
+				}
+				<div class="col-lg-4 text-danger">
+					@if(flash().containsKey("user")) {
+						@flash().get("user")
+					}
+				</div>
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-1 col-lg-offset-3"><label for="password">Password</label></div>
+				@if(flash().containsKey("formfieldpassword")) {
+					<div class="col-lg-4"><input type="password" value="@flash().get("formfieldpassword")" class="form-control" id="password" name="password" placeholder="Password"></div>
+				} else {
+					<div class="col-lg-4"><input type="password" class="form-control" id="password" name="password" placeholder="Password"></div>
+				}
+				<div class="col-lg-4 text-danger">
+					@if(flash().containsKey("pass")) {
+						@flash().get("pass")
+					}
+				</div>
+			</div>
+			
+			<div class="row padding-div-top">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4 text-right"><button type="submit" class="btn btn-default">Submit</button></div>
+				<div class="col-lg-4"></div>
+			</div>
+			
+			@if(flash().containsKey("invaliduser")) {
+				<div class="row padding-div-top">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4 text-center text-danger">@flash().get("invaliduser")</div>
+				<div class="col-lg-4"></div>
+			</div>
+			}
+		</div>
+	</form>
+}

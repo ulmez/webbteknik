@@ -1,12 +1,45 @@
-@(shoppingBaskets: List[ShoppingBasket])
+@(shoppingBaskets: List[ShoppingBasket], all_shoppingBaskets: List[ShoppingBasket], num: Int, page: Int, one_users: List[User])
 
-@main("List all shoppingbaskets") {
-	<div class="text-info">
-		@for(shoppingBasket <- shoppingBaskets) {
-			shoppingBasketId: @shoppingBasket.getShoppingBasketId()<br />
-			userId: @shoppingBasket.getUserId()<br />
-			productId: @shoppingBasket.getProductId()<br />
-			quantity: @shoppingBasket.getQuantity()<br /><br />
-		}
+@main("List all shoppingbaskets", one_users) {
+	<div class="lead text-center">
+		List of all the shoppingbaskets:
 	</div>
+	
+	<div class="text-center">
+		<ul class="pagination">
+			@if(page > 1) {
+				<li><a href="/list-all-shoppingbaskets/@num/@{page - 1}">&laquo;</a></li>
+			} else {
+				<li class="disabled"><a href="">&laquo;</a></li>
+			}
+			
+			@for(a <- 0 to (all_shoppingBaskets.size() / num) - {if ((all_shoppingBaskets.size()) % num != 0) 0 else 1}) {
+				@if(request.uri == "/list-all-shoppingbaskets/" + num + "/" + {a + 1}) {
+					<li class="active"><a href="/list-all-shoppingbaskets/@num/@{a + 1}">@{a + 1} <span class="sr-only">(current)</span></a></li>
+				} else {
+					<li><a href="/list-all-shoppingbaskets/@num/@{a + 1}">@{a + 1}</a></li>
+				}
+			}
+			
+			@if((page) <= (all_shoppingBaskets.size() / num) - {if ((all_shoppingBaskets.size()) % num != 0) 0 else 1}) {
+				<li><a href="/list-all-shoppingbaskets/@num/@{page + 1}">&raquo;</a></li>
+			} else {
+				<li class="disabled"><a href="">&raquo;</a></li>
+			}
+		</ul>
+	</div>
+	
+	<table class="table table-striped table-bordered table-condensed">
+	<tr>
+		<th>shoppingBasketId</th><th>userId</th><th>productId</th><th>quantity</th>
+	</tr>
+	@for((shoppingBasket, index) <- shoppingBaskets.zipWithIndex) {
+		<tr>
+			<td><a href="/show-oneline-shoppingbasket/@{(num * (page - 1)) + (index + 1)}">@shoppingBasket.getShoppingBasketId()</a></td>
+			<td><a href="/show-one-shoppingbasket/@shoppingBasket.getUser().getUserId()">@shoppingBasket.getUser().getUserId()</a></td>
+			<td>@shoppingBasket.getProduct.getProductId()</td>
+			<td>@shoppingBasket.getQuantity()</td>
+		</tr>
+	}
+	</table>
 }

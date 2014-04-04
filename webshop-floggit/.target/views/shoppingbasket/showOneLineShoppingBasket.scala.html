@@ -1,0 +1,11 @@
+@* showOneLineShoppingBasket Template File *@
+@(shoppingBasket: ShoppingBasket, one_users: List[User])
+
+@main("Show oneline shoppingbasket", one_users) {
+	<div class="text-info">
+		shoppingBasketId: @shoppingBasket.getShoppingBasketId()<br />
+		userId: @shoppingBasket.getUser.getUserId()<br />
+		productId: @shoppingBasket.getProduct.getProductId()<br />
+		quantity: @shoppingBasket.getQuantity()
+	</div>
+}
